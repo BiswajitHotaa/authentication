@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" href="/css/styles.css">
+</head>
+<body>
+<nav class="nav">
+    <div class="brand">Auth Starter</div>
+    <div class="links">
+        <a th:if="${#httpServletRequest.remoteUser == null}" th:href="@{/login}">Login</a>
+        <a th:if="${#httpServletRequest.remoteUser == null}" th:href="@{/register}">Register</a>
+        <form th:if="${#httpServletRequest.remoteUser != null}" th:action="@{/logout}" method="post">
+            <button type="submit" class="btn">Logout</button>
+        </form>
+    </div>
+</nav>
+<main class="container">
+    <div class="card">
+        <h1>Welcome</h1>
+        <p th:if="${#httpServletRequest.remoteUser == null}">
+            You are not logged in. Please <a th:href="@{/login}">login</a> or <a th:href="@{/register}">register</a>.
+        </p>
+        <p th:if="${#httpServletRequest.remoteUser != null}">
+            Hello, <strong th:text="${#httpServletRequest.remoteUser}">user</strong>! You're authenticated.
+        </p>
+    </div>
+</main>
+</body>
+</html>
